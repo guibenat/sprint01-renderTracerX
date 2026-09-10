@@ -1,5 +1,29 @@
 USE render_trace;
 
+-- exibir quais sensores não possuem tanques
+SELECT id,
+codigo,
+CASE
+	WHEN tanque_id IS NULL THEN 'Sem Monitoramento'
+	END AS monitoramento
+FROM sensor
+WHERE tanque_id IS NULL;
+
+-- Exibir os sensores com leituras criticas e a data de leitura
+SELECT id,
+sensor_id,
+estado,
+dt_leitura
+FROM leitura_sensor
+WHERE estado = 'critico';
+
+-- Quando terminou
+SELECT id,
+tanque_id,
+IFNULL(dt_saida, 'Residuo no tanque. Sem registro de saída') AS relatorio_saida
+FROM periodo_armazenamento;
+
+
 -- USUARIOS 
 -- Exibir as informações dos usuários
 SELECT id,
@@ -119,14 +143,7 @@ TIMESTAMPDIFF(DAY, dt_instalacao, NOW()) AS dias_operando,
 TIMESTAMPDIFF(MONTH, dt_instalacao, NOW()) AS meses_operando
 FROM sensor;
 
--- exibir quais sensores não possuem tanques
-SELECT id,
-codigo,
-CASE
-	WHEN tanque_id IS NULL THEN 'Sem Monitoramento'
-	END AS monitoramento
-FROM sensor
-WHERE tanque_id IS NULL;
+
 
 -- LEITURA -- 
 -- Exibir informações de leitura sobre o sensor 1
@@ -134,13 +151,6 @@ SELECT *
 FROM leitura_sensor
 WHERE sensor_id = 1;
 
--- Exibir os sensores com leituras criticas e a data de leitura
-SELECT id,
-sensor_id,
-estado,
-dt_leitura
-FROM leitura_sensor
-WHERE estado = 'critico';
 
 -- Exibir ocorrencias criticas antes do dia 22-08-2026
 SELECT * 
@@ -179,8 +189,3 @@ tanque_id,
 dt_entrada
 FROM periodo_armazenamento;
 
--- Quando terminou
-SELECT id,
-tanque_id,
-IFNULL(dt_saida, 'Residuo no tanque. Sem registro de saída') AS relatorio_saida
-FROM periodo_armazenamento;
