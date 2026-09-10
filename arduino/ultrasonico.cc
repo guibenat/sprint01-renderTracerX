@@ -1,17 +1,41 @@
-const int PINO_SENSOR_TEMPERATURA = A0;
-flat temperaturaCElsius;
+// declaração de váriaveis
+#include "Ultrasonic.h" // importação da bibliotéca do sensor
 
-void() {
-	Serial.begin(9600);
+const int PINO_TRIGGER = 12;
+const int PINO_ECHO = 13;
+
+HC_SR04 sensor(PINO_TRIGGER, PINO_ECHO);
+
+//configuração
+void setup() {
+  Serial.begin(9600); 
 }
 
-void loop(){
-	int valorLeitura = analogRead(PINO_SENSOR_TEMPERATURA);
- 	temperaturaCelsius = (valorLeitura * 5.0 / 1023.0) / 0.01;
+  //execução
+void loop() {
+  Serial.print("DistânciaMaxima:");
+  Serial.print(193.0); //Altura total 200 - 7 do sensor
+  Serial.print(" ");
+  Serial.print("Distância:");
+  Serial.print(sensor.distance());
+  Serial.print ("cm");
+  Serial.print(" ");
+  Serial.print("DistânciaMinima:");
+  Serial.print(" ");
+  Serial.println(7);
+  Serial.print("AlturaFunil:"); // altura do tanque de armazenamento
+  Serial.println(100.0);
+  Serial.print(" ");
 
-	Serial.print("Temperatura: ");
-	Serial.print(temperaturaCelsius);
-	Serial.print(" C°");
+  //conversão dos valores
+  Serial.print("Capacidade:"); //inverso da distância
+  Serial.print(((193 - sensor.distance()) * 10) / 18); // inverte a leitura do sensor e calcula a porcentagem bruta de 0 a 100
+  Serial.print("%");
+  Serial.print(" ");
 
-	delay(2000);
+  Serial.print("VolumeSimulado:"); // acompanha a capacidade
+  Serial.print(((193 - sensor.distance()) * 10) / 18); 
+  Serial.println("m³");
+
+  delay(200);
 }
