@@ -20,9 +20,9 @@ void loop() {
   Serial.print(sensor.distance());
   Serial.print ("cm");
   Serial.print(" ");
-  Serial.print("DistânciaMinima:");
+  Serial.print("DistânciaMinima:"); 
+  Serial.println(7); // distância a partir do sensor
   Serial.print(" ");
-  Serial.println(7);
   Serial.print("AlturaFunil:"); // altura do tanque de armazenamento
   Serial.println(100.0);
   Serial.print(" ");
@@ -33,7 +33,7 @@ void loop() {
   Serial.print("%");
   Serial.print(" ");
 
-  Serial.print("VolumeSimulado:"); // acompanha a capacidade
+  Serial.print("MaterialInserido:"); // acompanha a capacidade
   Serial.print(((193 - sensor.distance()) * 10) / 18); 
   Serial.println("m³");
 
