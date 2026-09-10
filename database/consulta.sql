@@ -17,9 +17,10 @@ dt_leitura
 FROM leitura_sensor
 WHERE estado = 'critico';
 
--- Quando terminou
+-- Relatorio de entrada e saida do residuo
 SELECT id,
 tanque_id,
+dt_entrada,
 IFNULL(dt_saida, 'Residuo no tanque. Sem registro de saída') AS relatorio_saida
 FROM periodo_armazenamento;
 
