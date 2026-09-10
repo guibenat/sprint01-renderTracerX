@@ -41,15 +41,15 @@
         let downtime = Number(ipt_downtime.value);
         let custo_hora_parada = Number(ipt_custo_hora_parada.value);
 
-        if(insumo_processado <= 0) {
+        if (insumo_processado <= 0) {
             div_result.innerHTML += 'Insumo deve ser maior que 0'
-        } else if (rendimento < 0){
+        } else if (rendimento < 0) {
             div_result.innerHTML += ' Rendimento deve ser maior que 0'
         } else if (rendimento > 100) {
             div_result.innerHTML += ' Rendimento deve estar entre 0 e 100.'
         } else if (perda_transbordo < 0) {
             div_result.innerHTML += ' Valor de perda deve ser maior no minimo 0'
-        } 
+        }
 
         let massa_perdida = insumo_processado * perda_transbordo / 100;
         let produto_nao_gerado = massa_perdida * rendimento / 100;
@@ -63,7 +63,16 @@
         let valor_recuperado = prejuizo_por_ano * 0.85;
         let projecao = valor_recuperado * 3;
 
-        div_result.innerHTML = `<h2>PREJUÍZO MENSAL</h2>
+        div_result.innerHTML = `
+            <h2>FÓRMULAS UTILIZADAS</h2>
+            - O insumo perdido é igual o insumo processado vezes a perda do transbordo <br>
+            - O produto não gerado corresponde a porcentagem massa perdida vezes o rendimento  <br>
+            - O prejuizo transbordo corresponde ao produto não gerado vezes o valor do produto <br>
+            - O prejuizo por mês corresponde ao prejuizo do transbordo mais o prejuizo por hora passada <br>
+            - O prejuizo por ano corresponde ao mês vezes 12 <br>
+            - Sobre o cálculo das projeções corresponde a 85% valor do recuperado sobre o prejuizo por ano  <br>
+        
+        <h2>PREJUÍZO MENSAL</h2>
             - ${massa_perdida}kg de insumo perdido <br>
             - ${produto_nao_gerado}kg de produto não gerado <br>
             - ${prejuizo_transbordo} / mês <br>
